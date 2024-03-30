@@ -9,13 +9,15 @@ export const data = new SlashCommandBuilder()
     .addStringOption((option) => option.setName('minecraft_name').setDescription('Your minecraft username.').setRequired(true));
 
 export async function execute(interaction: CommandInteraction) {
-    //return interaction.reply("Pong!");
-    var uid = interaction.member.user.id;
-    var first_name = interaction.options.getString('first_name');
-    var mc_username = interaction.options.getString('minecraft_name');
+    const uid = interaction.member!.user.id;
+    // @ts-ignore
+    const first_name = interaction.options.getString('first_name');
+    // @ts-ignore
+    const mc_username = interaction.options.getString('minecraft_name');
 
     // Set the users nickname (if needed).
-    let err = await setNickname(interaction.guildId, uid, interaction.member.nickname, first_name, "TBD");
+    // @ts-ignore
+    let err = await setNickname(interaction.guildId!, uid, interaction.member!.nickname, first_name, "TBD");
     if (err.length > 0) {
         return interaction.reply({
             content: err,

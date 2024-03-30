@@ -37,7 +37,7 @@ export async function addMinecraftAccount(userId: string, first_name: string, mc
                 return "Unknown error. Please start a thread in the support channel."
             }
         }
-    } catch (err) {
+    } catch (err: any) {
         console.log("NATS error:", err.message);
         return "A system error. Please start a thread in the support channel."
     }

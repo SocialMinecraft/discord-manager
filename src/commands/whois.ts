@@ -34,20 +34,22 @@ export async function execute(interaction: CommandInteraction) {
         let resBody = resType.decode(res.data);
 
         // build resp
-        var msg = `${user?.displayName} has ${resBody.accounts.length} Account${resBody.accounts.length > 0 ? "s" : ""}:`;
-        for (let account of resBody.accounts ) {
+        // @ts-ignore
+        let accounts = resBody.accounts;
+        let msg = `${user?.displayName} has ${accounts.length} Account${accounts.length > 0 ? "s" : ""}:`;
+        for (let account of accounts ) {
             msg += `\n\t${account.minecraftUsername}`;
             if (account.isMain)
                 msg += ` (main)`;
         }
-        if (resBody.accounts.length == 0)
+        if (accounts.length == 0)
             msg = "No accounts found for " + user?.displayName;
 
         return interaction.reply({
             content: msg,
             ephemeral: true,
         });
-    } catch (err) {
+    } catch (err: any) {
         console.log("NATS error:", err.message);
         return "A system error. Please start a thread in the support channel."
     }

@@ -3,7 +3,7 @@ import {deployCommands} from "./deploy-commands";
 import {commands} from "./commands";
 import {config} from "./config";
 import {connect, NatsConnection} from "nats";
-import protobuf, {Field} from "protobufjs";
+import protobuf from "protobufjs";
 import {setNickname} from "./helpers/set-nickename";
 
 export let nc: NatsConnection;
@@ -37,7 +37,7 @@ const start = async () => {
         process.exit(1);
     }
 
-    // connect to disocrd
+    // connect to discord
     await deployCommands();
     await client.login(config.DISCORD_TOKEN);
 
@@ -49,21 +49,24 @@ const start = async () => {
                 return
             }
 
-            console.log(msg.data.toString());
-
-
             let root = protobuf.loadSync("../proto/accounts.proto");
             let type = root.lookupType("MinecraftAccountChanged")
 
-            var message = type.decode(msg.data, msg.data.byteLength);
+            let message = type.decode(msg.data, msg.data.byteLength);
 
-            if (message.account.isMain) {
-                await setNickname(
+            // @ts-ignore
+            let account = message.account;
+            if (account.isMain) {
+                // @ts-ignore
+                let err = await setNickname(
                     config.DISCORD_GUILD_ID,
                     message.userId,
                     null,
-                    message.account.firstName,
-                    message.account.minecraftUsername);
+                    account.firstName,
+                    account.minecraftUsername);
+                if (err.length > 0) {
+                    console.log("error setting nick: " + err);
+                }
             }
         },
     });
