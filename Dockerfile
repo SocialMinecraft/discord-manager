@@ -20,7 +20,7 @@ RUN rm -rf /code
 WORKDIR /app
 CMD ["node", "index.js"]
 
-#docker build --no-cache -t dmgarvis/discord-manager:latest .
+#docker build --platform linux/amd64 --no-cache -t dmgarvis/discord-manager:latest .
 #docker push dmgarvis/discord-manager:latest
 
 #docker run --env-file .env dmgarvis/discord-manager:latest
