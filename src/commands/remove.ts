@@ -13,7 +13,7 @@ export async function execute(interaction: CommandInteraction) {
     const mc_username = interaction.options.getString('minecraft_name');
     const uid = interaction.member!.user.id;
 
-    let root = protobuf.loadSync("../proto/accounts.proto");
+    let root = protobuf.loadSync("./proto/accounts.proto");
     const reqType = root.lookupType("RemoveMinecraftAccountRequest");
     const resType = root.lookupType("ChangeMinecraftAccountResponse");
     let payload = {

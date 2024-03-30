@@ -8,7 +8,7 @@ export async function addMinecraftAccount(userId: string, first_name: string, mc
         return 'Please double check your minecraft name and then try again. Minecraft names are between 3 and 16 characters and are made up of only letters and numbers.';
     }
 
-    let root = protobuf.loadSync("../proto/accounts.proto");
+    let root = protobuf.loadSync("./proto/accounts.proto");
     const reqType = root.lookupType("AddMinecraftAccountRequest");
     const resType = root.lookupType("ChangeMinecraftAccountResponse");
     let payload = {

@@ -49,7 +49,7 @@ const start = async () => {
                 return
             }
 
-            let root = protobuf.loadSync("../proto/accounts.proto");
+            let root = protobuf.loadSync("./proto/accounts.proto");
             let type = root.lookupType("MinecraftAccountChanged")
 
             let message = type.decode(msg.data, msg.data.byteLength);

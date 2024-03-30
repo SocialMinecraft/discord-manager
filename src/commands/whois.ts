@@ -13,7 +13,7 @@ export async function execute(interaction: CommandInteraction) {
     let uid = user!.id;
     console.log(uid);
 
-    let root = protobuf.loadSync("../proto/accounts.proto");
+    let root = protobuf.loadSync("./proto/accounts.proto");
     const reqType = root.lookupType("ListMinecraftAccountsRequest");
     const resType = root.lookupType("ListMinecraftAccountsResponse");
     let payload = {
