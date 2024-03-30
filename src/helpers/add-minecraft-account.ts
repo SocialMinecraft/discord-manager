@@ -26,7 +26,7 @@ export async function addMinecraftAccount(userId: string, first_name: string, mc
 
     try {
         let res = await nc.request("accounts.minecraft.add", buffer, {
-            timeout: 1000 * 2
+            timeout: 1000 * 2.5
         });
         let resBody = resType.decode(res.data);
         //console.log(resBody.success, resBody.errorMessage);
