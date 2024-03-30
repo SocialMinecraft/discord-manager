@@ -8,14 +8,13 @@ FROM node:20
 RUN mkdir /code
 COPY . /code/
 
-RUN mkdir /proto
-COPY ../proto/* /proto/
-
 WORKDIR /code
 RUN npm install
 RUN npm run build
 
 RUN mv dist /app
+RUN mv proto /app/proto
+RUN mv node_modules /app/node_modules
 RUN rm -rf /code
 
 WORKDIR /app
@@ -23,3 +22,5 @@ CMD ["node", "index.js"]
 
 #docker build --no-cache -t dmgarvis/discord-manager:latest .
 #docker push dmgarvis/discord-manager:latest
+
+#docker run --env-file .env dmgarvis/discord-manager:latest
