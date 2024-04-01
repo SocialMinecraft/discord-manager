@@ -41,8 +41,8 @@ export async function execute(interaction: CommandInteraction) {
         // @ts-ignore
         const details = resBody.membership;
         let msg = "Email: " + details.email + "\n"
-        msg += "Membership signup: " + new Date(details.start*1000).toISOString() + "\n"
-        msg += "Membership expires: " + new Date(details.expire*1000).toISOString() + ""
+        msg += "Membership signup: " + new Date(details.start*1000).toDateString() + "\n"
+        msg += "Membership expires: " + new Date(details.expire*1000).toDateString() + ""
 
         await sendResponse(interaction, msg)
         return;
