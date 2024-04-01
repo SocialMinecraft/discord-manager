@@ -7,6 +7,7 @@ export const data = new SlashCommandBuilder()
     .setDescription("Lookup all minecraft user names for a player.")
     .addUserOption((option) => option.setName('user').setDescription('The user to lookup').setRequired(true));
 
+// TODO - fix the very broken error handling... returning the error does nothing.
 export async function execute(interaction: CommandInteraction) {
 
     let user = interaction.options.getUser("user")

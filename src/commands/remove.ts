@@ -7,6 +7,7 @@ export const data = new SlashCommandBuilder()
     .setDescription("Remove an account you have registered.")
     .addStringOption((option) => option.setName('minecraft_name').setDescription('Your minecraft username.').setRequired(true));
 
+// TODO - fix the very broken error handling... returning the error does nothing.
 export async function execute(interaction: CommandInteraction) {
 
     // @ts-ignore
