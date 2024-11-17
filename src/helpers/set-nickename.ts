@@ -31,7 +31,7 @@ export async function setNickname(
         })
     } catch (err) {
         console.log(err);
-        return "An Error occured while attempting to update your discord name."
+        //return "An Error occured while attempting to update your discord name."
     }
 
     return "";

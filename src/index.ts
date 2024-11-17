@@ -5,6 +5,7 @@ import {config} from "./config";
 import {connect, NatsConnection} from "nats";
 import protobuf from "protobufjs";
 import {setNickname} from "./helpers/set-nickename";
+import path from "path";
 
 export let nc: NatsConnection;
 
@@ -49,7 +50,12 @@ const start = async () => {
                 return
             }
 
-            let root = protobuf.loadSync("./proto/accounts.proto");
+            let root = new protobuf.Root();
+            root.resolvePath = (origin: string, target: string) => {
+                const protoDir = "./proto";
+                return path.resolve(protoDir, target);
+            };
+            root.loadSync("minecraft_account/minecraft_account_update.proto");
             let type = root.lookupType("MinecraftAccountChanged")
 
             let message = type.decode(msg.data, msg.data.byteLength);
@@ -60,7 +66,7 @@ const start = async () => {
                 // @ts-ignore
                 let err = await setNickname(
                     config.DISCORD_GUILD_ID,
-                    message.userId,
+                    message.deprecatedDiscordId,
                     null,
                     account.firstName,
                     account.minecraftUsername);

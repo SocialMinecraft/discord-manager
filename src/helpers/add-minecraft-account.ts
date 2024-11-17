@@ -1,6 +1,7 @@
 import * as validators from "./validators";
 var protobuf = require("protobufjs");
 import {nc} from "../index";
+import * as path from 'path';
 
 export async function addMinecraftAccount(userId: string, first_name: string, mc_name: string ) {
 
@@ -8,11 +9,17 @@ export async function addMinecraftAccount(userId: string, first_name: string, mc
         return 'Please double check your minecraft name and then try again. Minecraft names are between 3 and 16 characters and are made up of only letters and numbers.';
     }
 
-    let root = protobuf.loadSync("./proto/accounts.proto");
+    let root = new protobuf.Root();
+    root.resolvePath = (origin: string, target: string) => {
+        const protoDir = "./proto";
+        return path.resolve(protoDir, target);
+    };
+    root.loadSync("minecraft_account/minecraft_account_add.proto");
+    root.loadSync("minecraft_account/minecraft_account_update.proto");
     const reqType = root.lookupType("AddMinecraftAccountRequest");
     const resType = root.lookupType("ChangeMinecraftAccountResponse");
     let payload = {
-        userId: userId,
+        deprecatedDiscordId: userId,
         firstName: first_name,
         minecraftUsername: mc_name,
     }

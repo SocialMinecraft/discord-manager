@@ -1,6 +1,7 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 import protobuf from "protobufjs";
 import {nc} from "../index";
+import path from "path";
 
 export const data = new SlashCommandBuilder()
     .setName("remove")
@@ -14,12 +15,18 @@ export async function execute(interaction: CommandInteraction) {
     const mc_username = interaction.options.getString('minecraft_name');
     const uid = interaction.member!.user.id;
 
-    let root = protobuf.loadSync("./proto/accounts.proto");
+    let root = new protobuf.Root();
+    root.resolvePath = (origin: string, target: string) => {
+        const protoDir = "./proto";
+        return path.resolve(protoDir, target);
+    };
+    root.loadSync("minecraft_account/minecraft_account_remove.proto");
+    root.loadSync("minecraft_account/minecraft_account_update.proto");
     const reqType = root.lookupType("RemoveMinecraftAccountRequest");
     const resType = root.lookupType("ChangeMinecraftAccountResponse");
     let payload = {
         userId: uid,
-        minecraftUsername: mc_username,
+        deprecatedMinecraftUsername: mc_username,
     }
     const errMsg = reqType.verify(payload);
     if (errMsg) {

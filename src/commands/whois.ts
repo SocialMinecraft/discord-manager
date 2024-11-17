@@ -1,6 +1,7 @@
 import {CommandInteraction, SlashCommandBuilder} from "discord.js";
 import protobuf from "protobufjs";
 import {nc} from "../index";
+import path from "path";
 
 export const data = new SlashCommandBuilder()
     .setName("whois")
@@ -14,7 +15,12 @@ export async function execute(interaction: CommandInteraction) {
     let uid = user!.id;
     console.log(uid);
 
-    let root = protobuf.loadSync("./proto/accounts.proto");
+    let root = new protobuf.Root();
+    root.resolvePath = (origin: string, target: string) => {
+        const protoDir = "./proto";
+        return path.resolve(protoDir, target);
+    };
+    root.loadSync("minecraft_account/minecraft_account_list.proto");
     const reqType = root.lookupType("ListMinecraftAccountsRequest");
     const resType = root.lookupType("ListMinecraftAccountsResponse");
     let payload = {
