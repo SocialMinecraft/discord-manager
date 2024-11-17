@@ -1,10 +1,5 @@
 FROM node:20
 
-#ENV DISCORD_TOKEN todo
-#ENV DISCORD_CLIENT_ID todo
-#ENV DISCORD_GUILD_ID todo
-#ENV NATS_URL todo
-
 RUN mkdir /code
 COPY . /code/
 

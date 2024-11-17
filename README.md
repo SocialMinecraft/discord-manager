@@ -14,3 +14,10 @@ https://discord.com/oauth2/authorize?client_id=1223361045536575589&scope=bot&per
 
 ### Permissions
 - Manage Nicknames
+
+## Env Vars
+
+- DISCORD_TOKEN todo
+- DISCORD_CLIENT_ID todo
+- DISCORD_GUILD_ID todo
+- NATS_URL todo
