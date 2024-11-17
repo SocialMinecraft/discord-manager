@@ -9,7 +9,7 @@ RUN npm run build
 
 RUN mv dist /app
 RUN mv proto /app/proto
-RUN mv node_modules /app/node_modules
+#RUN mv node_modules /app/node_modules
 RUN rm -rf /code
 
 WORKDIR /app
