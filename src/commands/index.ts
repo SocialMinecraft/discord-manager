@@ -5,6 +5,7 @@ import * as remove from "./remove";
 import * as vipclaim from "./vipclaim";
 import * as vipsync from "./vipsync";
 import * as vip from "./vip";
+import * as account from "./account";
 
 export const commands = {
     ping,
@@ -14,4 +15,5 @@ export const commands = {
     vipclaim,
     vipsync,
     vip,
+    account,
 };

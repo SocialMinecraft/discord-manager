@@ -42,6 +42,8 @@ const start = async () => {
     await deployCommands();
     await client.login(config.DISCORD_TOKEN);
 
+    // todo - list for account name changes
+
     // Listen for name changes on nats
     const sub = nc.subscribe("accounts.minecraft.changed", {
         callback: async (err, msg) => {
