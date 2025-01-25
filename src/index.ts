@@ -58,19 +58,21 @@ const start = async () => {
                 return path.resolve(protoDir, target);
             };
             root.loadSync("minecraft_account/minecraft_account_update.proto");
-            let type = root.lookupType("MinecraftAccountChanged")
+            let type = root.lookupType("MinecraftAccountChanged");
 
             let message = type.decode(msg.data, msg.data.byteLength);
 
             // @ts-ignore
             let account = message.account;
+            console.log("accounts.minecraft.changed: ", message);
+            console.log("accounts.minecraft.changed->account: ", account);
             if (account.isMain) {
                 // @ts-ignore
                 let err = await setNickname(
                     config.DISCORD_GUILD_ID,
                     message.deprecatedDiscordId,
                     null,
-                    account.firstName,
+                    account.deprecatedFirstName,
                     account.minecraftUsername);
                 if (err.length > 0) {
                     console.log("error setting nick: " + err);
