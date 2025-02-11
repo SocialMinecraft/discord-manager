@@ -1,4 +1,4 @@
-import {CommandInteraction, SlashCommandBuilder} from "discord.js";
+import {CommandInteraction, MessageFlags, SlashCommandBuilder} from "discord.js";
 import protobuf from "protobufjs";
 import {nc} from "../index";
 
@@ -49,6 +49,6 @@ export async function execute(interaction: CommandInteraction) {
 async function sendResponse(interaction : CommandInteraction, msg: string) {
     await interaction.reply({
         content: msg,
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral
     });
 }

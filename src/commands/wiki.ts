@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, MessageFlags, SlashCommandBuilder } from 'discord.js';
 
 const WIKI_LINK = 'https://doc.clickup.com/9013455369/d/h/8ckwug9-53/856b548acfcac7e';
 const SECTIONS: Record<string, string> = {
@@ -26,10 +26,16 @@ export const data = new SlashCommandBuilder()
 export async function execute(interaction: ChatInputCommandInteraction) {
     const section = interaction.options.getString('section');
     if (!section) {
-        await interaction.reply({ content: `📖 Here is the main wiki link: <${WIKI_LINK}>`, ephemeral: true });
+        await interaction.reply({
+            content: `📖 Here is the main wiki link: <${WIKI_LINK}>`,
+            flags: MessageFlags.Ephemeral
+        });
         return;
     }
     
     const link = SECTIONS[section] || WIKI_LINK;
-    await interaction.reply({ content: `📖 Here is the ${section.replace(/-/g, ' ')} wiki link: <${link}>`, ephemeral: true });
+    await interaction.reply({
+        content: `📖 Here is the ${section.replace(/-/g, ' ')} wiki link: <${link}>`,
+        flags: MessageFlags.Ephemeral
+    });
 }
