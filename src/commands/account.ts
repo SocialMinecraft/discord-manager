@@ -1,4 +1,4 @@
-import {CommandInteraction, SlashCommandBuilder} from "discord.js";
+import {CommandInteraction, MessageFlags, SlashCommandBuilder} from "discord.js";
 import protobuf from "protobufjs";
 import {nc} from "../index";
 import path from "path";
@@ -18,7 +18,7 @@ export async function execute(interaction: CommandInteraction) {
     if (error1.length > 0) {
         return interaction.reply({
             content: error1,
-            ephemeral: true,
+            flags: MessageFlags.Ephemeral
         });
     }
 
@@ -27,14 +27,14 @@ export async function execute(interaction: CommandInteraction) {
     if (error2.length > 0) {
         return interaction.reply({
             content: error2,
-            ephemeral: true,
+            flags: MessageFlags.Ephemeral
         });
     }
 
     // Success!
     return interaction.reply({
         content: "You may access your account here: https://account.somc.club/" + token,
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral
     });
 
 }

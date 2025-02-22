@@ -1,4 +1,4 @@
-import { CommandInteraction, SlashCommandBuilder } from "discord.js";
+import { CommandInteraction, MessageFlags, SlashCommandBuilder } from "discord.js";
 import {setNickname} from "../helpers/set-nickename";
 import {addMinecraftAccount} from "../helpers/add-minecraft-account";
 
@@ -21,7 +21,7 @@ export async function execute(interaction: CommandInteraction) {
     if (err.length > 0) {
         return interaction.reply({
             content: err,
-            ephemeral: true,
+            flags: MessageFlags.Ephemeral
         });
     }
 
@@ -30,13 +30,13 @@ export async function execute(interaction: CommandInteraction) {
     if (err.length > 0) {
         return interaction.reply({
             content: err,
-            ephemeral: true,
+            flags: MessageFlags.Ephemeral
         });
     }
 
     // Success!
     return interaction.reply({
         content: "Success! Your account has been registered.",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral
     });
 }

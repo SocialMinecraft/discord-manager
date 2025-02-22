@@ -1,4 +1,4 @@
-import { CommandInteraction, SlashCommandBuilder } from "discord.js";
+import { CommandInteraction, MessageFlags, SlashCommandBuilder } from "discord.js";
 
 export const data = new SlashCommandBuilder()
     .setName("ping")
@@ -7,6 +7,6 @@ export const data = new SlashCommandBuilder()
 export async function execute(interaction: CommandInteraction) {
     return interaction.reply({
         content: "Pong!",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral
     });
 }

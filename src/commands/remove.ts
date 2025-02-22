@@ -1,4 +1,4 @@
-import { CommandInteraction, SlashCommandBuilder } from "discord.js";
+import { CommandInteraction, MessageFlags, SlashCommandBuilder } from "discord.js";
 import protobuf from "protobufjs";
 import {nc} from "../index";
 import path from "path";
@@ -51,7 +51,7 @@ export async function execute(interaction: CommandInteraction) {
 
         return interaction.reply({
             content: msg,
-            ephemeral: true,
+            flags: MessageFlags.Ephemeral
         });
     } catch (err: any) {
         console.log("NATS error:", err.message);
